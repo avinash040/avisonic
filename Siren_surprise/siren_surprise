@@ -1,0 +1,44 @@
+use_synth :mod_tri
+use_bpm 60
+
+i = 0
+live_loop :siren do
+  if i < 10
+    puts "playing nothing"
+  elsif  i < 15
+    play choose([:c3, :g3]), attack: 1.2
+  elsif i < 20
+    play choose([:c4, :g4]), attack: 1.2
+  elsif i < 25
+    play choose([:c4, :g4]), attack: 1.2
+  elsif i < 30
+    play choose([:c5, :g5]), attack: 1.2
+  end
+  i = i + 1
+  sleep 1
+end
+
+use_synth :piano
+live_loop :lead do
+  sync :siren
+  play choose(scale(:c4, 'minor'))
+  sleep 1
+end
+
+live_loop :ryth1 do
+  sync :lead
+  sleep 0.5
+  play chord(choose(scale(:c4, :minor_pentatonic)), 'minor')
+end
+
+live_loop :beat do
+  sync :siren
+  sample :bd_klub
+  sleep 0.5
+end
+
+live_loop :beat2 do
+  sync :siren
+  sleep 0.5
+  sample :sn_dolf, rate: 2
+end
