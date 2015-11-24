@@ -1,0 +1,27 @@
+use_synth :pretty_bell
+use_bpm 180
+use_random_seed 20
+
+i = rrand_i(45, 85)
+live_loop :maj do
+  play choose(scale(i,:major))
+  sleep 1
+end
+
+live_loop :ryth1 do
+  sync :maj
+  play choose([chord(i,'major'), chord(i+7,'major')])
+  sleep 0.5
+end
+
+live_loop :beat1 do
+  sync :maj
+  sample :bd_fat, amp: 2, pan: rrand_i(-1,1)
+  sleep 2
+end
+
+live_loop :sample_loop do
+  sync :beat1
+  sample :perc_bell, rate: 0.25, pan: rrand_i(-1,1)
+  sleep 5
+end
